@@ -1,0 +1,663 @@
+:root {
+    --green-dark-1: #203834;
+    --green-dark-2: #214E47;
+    --primary-teal: #043931;
+    --muted-mint: #90C29B;
+    --card-mint: #88B497;
+    --text-dark: #355C56;
+    --danger-red: #AA4C5C;
+    --bg-light: #DBDBDB;
+    --deep-accent: #00342C;
+    --success-green: #27ba45;
+    --result-bg: #e4f5ef;
+    --light-gray-bg: #f3f6f4;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--white);
+    color: var(--text-dark);
+    min-height: 100vh;
+}
+
+/* --- Common Styles --- */
+.page {
+    display: none;
+    padding-top: 80px; /* Space for fixed navbar */
+    min-height: 100vh;
+}
+.page.active {
+    display: block;
+}
+
+/* --- Navbar --- */
+.navbar {
+    background-color: var(--green-dark-1);
+    color: var(--white);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar h1 {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.navbar .menu-icon, .navbar .bell-icon {
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+
+.navbar .menu-icon:hover, .navbar .bell-icon:hover {
+    transform: scale(1.1);
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 300px;
+    height: 100vh;
+    background-color: var(--white);
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
+    z-index: 1001;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.sidebar.active {
+    right: 0;
+}
+
+.sidebar-header {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.sidebar-header .user-icon {
+    font-size: 3rem;
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+.sidebar-header h3 {
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.sidebar-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Reduced gap */
+}
+
+.sidebar-item:hover {
+    background-color: var(--light-gray-bg);
+}
+
+.sidebar-item i {
+    width: 20px;
+    color: var(--success-green);
+}
+
+.sidebar-divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 20px 0;
+}
+
+/* --- Login Page --- */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    padding: 20px;
+}
+
+.login-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+.login-card h2 {
+    color: var(--green-dark-1);
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    text-align: right;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--success-green);
+}
+
+/* --- Buttons --- */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    font-family: 'Cairo', sans-serif;
+}
+
+.btn-primary {
+    background-color: var(--green-dark-1);
+    color: var(--white);
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: var(--green-dark-2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-dark-success {
+    background-color: var(--green-dark-1);
+    color: var(--white);
+}
+
+.btn-dark-success:hover {
+    background-color: var(--green-dark-2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-success {
+    background-color: var(--success-green);
+    color: var(--white);
+}
+
+.btn-success:hover {
+    background-color: #229f3d;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(39, 186, 69, 0.3);
+}
+
+.btn-action {
+    background-color: var(--white);
+    color: var(--text-dark);
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    flex-grow: 1;
+}
+
+.btn-action:hover {
+    background-color: var(--light-gray-bg);
+}
+
+.btn-danger {
+    border-color: var(--danger-red);
+    color: var(--danger-red);
+}
+
+.btn-danger:hover {
+    background-color: var(--danger-red);
+    color: var(--white);
+}
+
+/* --- Main Page --- */
+.main-content {
+    padding: 20px;
+}
+
+/* Student Info Card */
+.student-info-card {
+    background-color: var(--light-gray-bg); /* Updated color */
+    color: var(--text-dark); /* Dark text for contrast */
+    padding: 30px; /* More open */
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.student-header {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* More open */
+    margin-bottom: 15px;
+}
+
+.student-header .user-icon {
+    font-size: 2rem;
+    color: #888; /* Gray icon */
+}
+
+.student-header h3 {
+    font-size: 1.2rem;
+}
+
+.student-details {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+.percentage-display {
+    background-color: #fff; /* White for contrast */
+    border-radius: 10px;
+    padding: 10px; /* Reduced height */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid var(--success-green);
+    border-right-width: 5px; /* Thick border on right */
+}
+
+.percentage-left {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--success-green); /* Green for % */
+}
+
+.percentage-right {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-dark); /* Black for /100 */
+}
+
+/* Section Title */
+.section-title {
+    color: var(--green-dark-1);
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.section-subtitle {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 20px 0;
+}
+
+/* Mufadala Card */
+.card {
+    background: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.card-header-success {
+    background-color: var(--success-green);
+    color: var(--white);
+    padding: 10px;
+    text-align: center;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.card-header-light {
+    background-color: var(--result-bg);
+    padding: 15px;
+    text-align: center;
+}
+
+.card-header-light h3 {
+    color: var(--success-green);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.payment-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--white);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    color: var(--success-green);
+}
+
+.card-body {
+    padding: 20px;
+    background-color: var(--light-gray-bg);
+}
+
+.date-row {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--white);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    gap: 10px; /* Space between icon and text */
+}
+
+.date-row i {
+    color: var(--success-green);
+}
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* --- Result Page --- */
+.result-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: calc(100vh - 80px - 40px); /* Full height minus header and padding */
+    padding: 20px;
+}
+.result-card-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.result-card {
+    background-color: var(--result-bg);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: right; /* Right-aligned content */
+    max-width: 500px;
+    width: 100%;
+}
+
+.result-card h2 {
+    color: var(--success-green);
+    margin-bottom: 20px;
+}
+
+.university-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.admission-type {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.result-info {
+    background-color: var(--white);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.result-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.result-info-row:last-child {
+    margin-bottom: 0;
+}
+
+.min-score {
+    color: var(--success-green);
+    font-weight: bold;
+}
+
+/* --- Profile Page --- */
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 80px - 40px);
+}
+.profile-content {
+    flex-grow: 1;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-header h2 {
+    color: var(--green-dark-1);
+    margin-bottom: 10px;
+}
+
+.info-section {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.info-section h3 {
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-item {
+    margin-bottom: 15px;
+}
+
+.info-label-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.info-label-with-icon i {
+    color: var(--success-green);
+    width: 20px;
+}
+
+.info-value {
+    padding-right: 30px; /* Align with the text of the label */
+    color: #666;
+}
+
+.info-section-divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 25px 0;
+}
+
+/* --- Message Pages --- */
+.message-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: calc(100vh - 80px - 40px);
+    padding: 20px;
+}
+.message-card-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.message-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.message-card h2 {
+    color: var(--danger-red);
+    margin-bottom: 20px;
+}
+
+.message-card p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* --- Exams List Page --- */
+.exams-list-container {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 80px - 40px);
+    padding: 20px;
+}
+.exams-list-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.exams-card-header {
+    background-color: var(--green-dark-1); /* Dark header */
+    color: var(--white);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 15px 15px 0 0;
+}
+.exams-card-body {
+    background-color: var(--white);
+    padding: 40px;
+    text-align: center;
+    border-radius: 0 0 15px 15px;
+}
+.exams-card-body p {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* --- Formal Loading Spinner --- */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    flex-direction: column;
+    gap: 20px;
+}
+.loading-overlay.active {
+    display: flex;
+}
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(39, 186, 69, 0.1);
+    border-top: 4px solid var(--success-green);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+.loading-text {
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .navbar h1 {
+        font-size: 1rem;
+    }
+    
+    .sidebar {
+        width: 250px;
+        right: -270px;
+    }
+    
+    .card-actions {
+        flex-direction: column;
+    }
+    
+    .btn-action {
+        width: 100%;
+    }
+}

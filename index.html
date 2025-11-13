@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتائج مفاضلة القبول الجامعي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <div class="loading-text">جاري التحميل...</div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <i class="fas fa-bars menu-icon" onclick="toggleSidebar()"></i>
+        <h1>نتائج مفاضلة القبول الجامعي</h1>
+        <i class="fas fa-bell bell-icon"></i>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-user-circle user-icon"></i>
+            <h3 id="sidebar-student-name">اسم الطالب</h3>
+        </div>
+        
+        <div class="sidebar-item">
+            <i class="fas fa-id-card"></i>
+            <div>
+                <div style="font-size: 0.85rem; color: #666;">رقم الاكتتاب:</div>
+                <div style="font-weight: 600;" id="sidebar-subscription-num">-----</div>
+            </div>
+        </div>
+        
+        <div class="sidebar-item">
+            <i class="fas fa-graduation-cap"></i>
+            <div>
+                <div style="font-size: 0.85rem; color: #666;">نوع الشهادة:</div>
+                <div style="font-weight: 600;">الثانوية العامة الفرع العلمي</div>
+            </div>
+        </div>
+        
+        <div class="sidebar-item">
+            <i class="fas fa-calendar"></i>
+            <div>
+                <div style="font-size: 0.85rem; color: #666;">سنة المنح:</div>
+                <div style="font-weight: 600;">2024</div>
+            </div>
+        </div>
+        
+        <div class="sidebar-divider"></div>
+        
+        <div class="sidebar-item" onclick="navigateToPage('profilePage')">
+            <i class="fas fa-user"></i>
+            <div>
+                <div style="font-weight: 600;">الملف الشخصي</div>
+                <div style="font-size: 0.85rem; color: #666;">عرض ملفك</div>
+            </div>
+        </div>
+        
+        <div class="sidebar-item">
+            <i class="fas fa-key"></i>
+            <div>
+                <div style="font-weight: 600;">إعادة تعيين كلمة المرور</div>
+                <div style="font-size: 0.85rem; color: #666;">غير كلمة مرور لحماية حسابك</div>
+            </div>
+        </div>
+        
+        <div class="sidebar-divider"></div>
+        
+        <div class="sidebar-item" onclick="logout()">
+            <i class="fas fa-sign-out-alt" style="color: var(--danger-red);"></i>
+            <div>
+                <div style="font-weight: 600; color: var(--danger-red);">تسجيل خروج</div>
+                <div style="font-size: 0.85rem; color: #666;">ستفقد الوصول حتى تسجل دخولك مجدداً</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 1: Login -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <div class="login-card">
+                <h2>نتائج مفاضلة فرز طلاب السنة التحضيريّة</h2>
+                <div class="input-group">
+                    <label for="examNumber">الرقم الامتحاني</label>
+                    <input type="text" id="examNumber" placeholder="أدخل الرقم الامتحاني">
+                </div>
+                <button class="btn btn-primary" onclick="login()">
+                    <i class="fas fa-search"></i> إظهار نتيجة المفاضلة
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2: Main Dashboard -->
+    <div id="mainPage" class="page">
+        <div class="main-content">
+            <!-- Student Info Card -->
+            <div class="student-info-card">
+                <div class="student-header">
+                    <i class="fas fa-user-circle user-icon"></i>
+                    <div>
+                        <h3 id="main-student-name">اسم الطالب</h3>
+                        <div class="student-details">الثانوية العامة الفرع العلمي - سوريا – 2024</div>
+                    </div>
+                </div>
+                <div class="percentage-display">
+                    <div class="percentage-right" id="main-average-100">--/100</div>
+                    <div class="percentage-left" id="main-average-percent">--%</div>
+                </div>
+            </div>
+
+            <!-- Section Title -->
+            <h2 class="section-title">مفاضلاتك المسجلة</h2>
+            <p class="section-subtitle">يمكنك إدارة أو إلغاء المفاضلات المسجلة</p>
+            <div class="divider"></div>
+
+            <!-- Register New Button -->
+            <button class="btn btn-dark-success" onclick="navigateToPage('noNewMufadalaPage')" style="margin-bottom: 30px;">
+                <i class="fas fa-plus"></i> تسجيل في مفاضلة جديدة
+            </button>
+
+            <!-- Mufadala Card -->
+            <div class="card">
+                <div class="card-header-success">
+                    <i class="fas fa-check-circle"></i> مثبتة
+                </div>
+                <div class="card-header-light">
+                    <h3>نتائج مفاضلة فرز طلاب السنة التحضيرية</h3>
+                    <div class="payment-badge">
+                        <i class="fas fa-check-circle" style="color: var(--success-green);"></i>
+                        مدفوع
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="date-row">
+                        <i class="fas fa-calendar"></i>
+                        <span>بداية التسجيل: 2/11/2025 9:00</span>
+                    </div>
+                    <div class="date-row">
+                        <i class="fas fa-calendar"></i>
+                        <span>نهاية التسجيل: 6/11/2025 20:00</span>
+                    </div>
+                    
+                    <div class="card-actions">
+                        <button class="btn btn-action" onclick="navigateToPage('noDesiresPage')"><i class="fas fa-list-ul"></i> ادارة الرغبات</button>
+                        <button class="btn btn-action" onclick="navigateToPage('examsListPage')"><i class="fas fa-clipboard-list"></i> امتحانات القبول</button>
+                    </div>
+                    
+                    <div class="card-actions">
+                        <button class="btn btn-action btn-danger" onclick="navigateToPage('cannotCancelPage')">الغاء البطاقة</button>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-dark-success" onclick="navigateToPage('resultPage')">اظهار النتيجة</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 3: Result -->
+    <div id="resultPage" class="page">
+        <div class="result-container">
+            <div class="result-card-wrapper">
+                <div class="result-card">
+                    <h2>الرغبة المقبولة</h2>
+                    <div class="university-name" id="result-university-college">--</div>
+                    <div class="admission-type" id="result-admission-type">--</div>
+                    <div class="result-info">
+                        <div class="result-info-row">
+                            <span><i class="fas fa-chart-line"></i> الحد الأدنى:</span>
+                            <span class="min-score" id="result-min-score">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="margin-top: 20px;" onclick="navigateToPage('mainPage')">
+                <i class="fas fa-arrow-right"></i> العودة
+            </button>
+        </div>
+    </div>
+
+    <!-- Page 4: Profile -->
+    <div id="profilePage" class="page">
+        <div class="profile-container">
+            <div class="profile-content">
+                <div class="profile-header">
+                    <h2 id="profile-student-name">اسم الطالب</h2>
+                    <p style="color: #666;">معلومات الطالب الاكاديمية</p>
+                </div>
+                
+                <div class="info-section">
+                    <h3><i class="fas fa-plus"></i> المعلومات الشخصيّة</h3>
+                    <div class="info-item">
+                        <div class="info-label-with-icon">
+                            <i class="fas fa-birthday-cake"></i>
+                            <span>تاريخ الميلاد:</span>
+                        </div>
+                        <div class="info-value">1-1-2006</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label-with-icon">
+                            <i class="fas fa-flag"></i>
+                            <span>الجنسية:</span>
+                        </div>
+                        <div class="info-value">سوري</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label-with-icon">
+                            <i class="fas fa-venus-mars"></i>
+                            <span>الجنس:</span>
+                        </div>
+                        <div class="info-value">ذكر</div>
+                    </div>
+                </div>
+                
+                <div class="info-section-divider"></div>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-graduation-cap"></i> المعلومات التعليميّة</h3>
+                    <div class="info-item">
+                        <div class="info-label-with-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>مصدر الشهادة:</span>
+                        </div>
+                        <div class="info-value">سوريا</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label-with-icon">
+                            <i class="fas fa-certificate"></i>
+                            <span>نوع الشهادة:</span>
+                        </div>
+                        <div class="info-value">الثانويّة العامة الفرع العلمي</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label-with-icon">
+                            <i class="fas fa-id-badge"></i>
+                            <span>رقم الاكتتاب:</span>
+                        </div>
+                        <div class="info-value" id="profile-subscription-num">--</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label-with-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>سنة المنح:</span>
+                        </div>
+                        <div class="info-value">2024</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label-with-icon">
+                            <i class="fas fa-calculator"></i>
+                            <span>المجموع:</span>
+                        </div>
+                        <div class="info-value" id="profile-total-score">--</div>
+                    </div>
+                </div>
+
+                <div class="info-section-divider"></div>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-info-circle"></i> معلومات اضافية</h3>
+                    <div class="info-item">
+                        <div class="info-label-with-icon">
+                            <i class="fas fa-user-tie"></i>
+                            <span>ابن عضو هيئة تدريسية؟</span>
+                        </div>
+                        <div class="info-value">لا</div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="margin-top: 20px;" onclick="navigateToPage('mainPage')">
+                <i class="fas fa-arrow-right"></i> العودة
+            </button>
+        </div>
+    </div>
+    
+    <!-- Page 5: Cannot Cancel -->
+    <div id="cannotCancelPage" class="page">
+        <div class="message-container">
+            <div class="message-card-wrapper">
+                <div class="message-card">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--danger-red); margin-bottom: 20px;"></i>
+                    <h2>لا يمكنك الغاء المفاضلة</h2>
+                    <p>بعد ان صدرت النتائج</p>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="margin-top: 20px;" onclick="navigateToPage('mainPage')">
+                <i class="fas fa-arrow-right"></i> العودة
+            </button>
+        </div>
+    </div>
+
+    <!-- Page 6: No New Mufadala -->
+    <div id="noNewMufadalaPage" class="page">
+        <div class="message-container">
+            <div class="message-card-wrapper">
+                <div class="message-card">
+                    <i class="fas fa-info-circle" style="font-size: 3rem; color: var(--text-dark); margin-bottom: 20px;"></i>
+                    <h2>لا توجد مفاضلات جديدة</h2>
+                    <p>حالياً لا تتوفر مفاضلات جديدة للتسجيل</p>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="margin-top: 20px;" onclick="navigateToPage('mainPage')">
+                <i class="fas fa-arrow-right"></i> العودة
+            </button>
+        </div>
+    </div>
+
+    <!-- Page 7: Exams List -->
+    <div id="examsListPage" class="page">
+        <div class="exams-list-container">
+            <div class="exams-list-content">
+                <div class="card">
+                    <div class="exams-card-header">
+                        <span>قائمة امتحانات القبول</span>
+                        <span style="background-color: var(--white); color: var(--green-dark-1); padding: 5px 10px; border-radius: 20px; font-size: 0.9rem;">
+                            <i class="fas fa-file"></i> 0 امتحانات
+                        </span>
+                    </div>
+                    <div class="exams-card-body">
+                        <i class="fas fa-clipboard-list" style="font-size: 3rem; color: #ccc; margin-bottom: 20px;"></i>
+                        <p style="color: #666;">لا توجد امتحانات مسجلة</p>
+                        <p style="color: #999; font-size: 0.9rem;">قم بالتسجيل في امتحان جديد للبدء</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="margin-top: 20px;" onclick="navigateToPage('mainPage')">
+                <i class="fas fa-arrow-right"></i> العودة
+            </button>
+        </div>
+    </div>
+
+    <!-- Page 8: No Desires -->
+    <div id="noDesiresPage" class="page">
+        <div class="message-container">
+            <div class="message-card-wrapper">
+                <div class="message-card">
+                    <i class="fas fa-list-ul" style="font-size: 3rem; color: var(--text-dark); margin-bottom: 20px;"></i>
+                    <h2>لا يوجد رغبات مسجلة</h2>
+                    <p>لم تقم بتسجيل أي رغبات بعد</p>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="margin-top: 20px;" onclick="navigateToPage('mainPage')">
+                <i class="fas fa-arrow-right"></i> العودة
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
